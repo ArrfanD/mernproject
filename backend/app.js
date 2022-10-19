@@ -1,5 +1,5 @@
 const express = require('express');
-
+const middleWare = require('./middleware/error')
 const app = express();
 app.use(express.json());
 
@@ -7,5 +7,8 @@ app.use(express.json());
 const product = require('./routes/productRoute.js');
 
 app.use('/api/v1', product);
+
+//Middleware for Error
+app.use(middleWare);
 
 module.exports = app;
