@@ -25,7 +25,7 @@ class ApiFeatures {
     //removing the unwanted fields
     removeFields.forEach((x) => {
       delete queryCopy[x];
-    });
+    })
 
     // executing the find function and proving the sorted queryCopy to it
     this.query = this.query.find(queryCopy);
