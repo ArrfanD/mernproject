@@ -25,10 +25,24 @@ class ApiFeatures {
     //removing the unwanted fields
     removeFields.forEach((x) => {
       delete queryCopy[x];
-    })
+    });
+
+    // Filter for Price and Rating based on a range
+    let queryString = JSON.stringify(queryCopy);
+    queryString = queryString.replace(
+      /\b(gt|gte|lt|lte)\b/g,
+      (key) => `$${key}`
+    );
 
     // executing the find function and proving the sorted queryCopy to it
-    this.query = this.query.find(queryCopy);
+    this.query = this.query.find(JSON.parse(queryString));
+    return this;
+  }
+
+  pagination(resultPerPage) {
+    const currentPage = Number(this.queryStr.page) || 1;
+    const skip = resultPerPage * (currentPage - 1);
+    this.query = this.query.limit(resultPerPage).skip(skip)
     return this;
   }
 }
